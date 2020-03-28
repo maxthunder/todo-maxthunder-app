@@ -8,6 +8,6 @@
     {{task.timestamp.getMonth()}}/{{task.timestamp.getDate()}}/{{task.timestamp.getFullYear()}}
     <div class="mdl-layout-spacer"></div>
     <i *ngIf="task.isCompleted" (click)="rehydrate()" class="material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">publish</i>
-    <i (click)="delete()" class="material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">close</i>
+    <i id="card-delete-button" (click)="delete()" class="material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">close</i>
   </div>
 </div>

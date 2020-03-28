@@ -1,20 +1,20 @@
 <div class="mdl-grid" style="padding-left: 5%">
-  <div class="mdl-cell mdl-cell--4-col"></div>
-  <div class="mdl-cell mdl-cell--4-col">
+  <div class="mdl-cell mdl-cell--2-col"></div>
+  <div class="mdl-cell mdl-cell--8-col">
     <form style="margin-bottom: 5px;" (submit)="add()">
       <span>
         <input name="description" [(ngModel)]="description" style="font-size: 32pt" class="mdl-textfield__input" type="text" placeholder="Add New Task..."/>
       </span>
     </form>
   </div>
-  <div class="mdl-cell mdl-cell--4-col"></div>
+  <div class="mdl-cell mdl-cell--2-col"></div>
 
   <div *ngFor="let task of tasks">
-    <div class="mdl-cell mdl-cell--4-col"></div>
-    <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="mdl-cell mdl-cell--8-col">
       <app-task-card [task]="task" (refreshCompletedTasks)="getAllTasks()"></app-task-card>
     </div>
-    <div class="mdl-cell mdl-cell--4-col"></div>
+    <div class="mdl-cell mdl-cell--2-col"></div>
   </div>
 </div>
 

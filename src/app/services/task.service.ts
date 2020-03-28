@@ -1,15 +1,22 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import { Task } from '../task';
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Task} from '../models/task';
+import {environment} from "../../environments/environment";
+import {Observable} from "rxjs";
+import {catchError, delay, publishReplay, refCount, retry} from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TaskService {
+  private taskServicePath:string = environment.hostname + ":" + environment.port;
+
   private readonly tasks: Array<Task>;
   private readonly completedTasks: Array<Task>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.tasks = [];
     this.completedTasks = [];
   }
@@ -17,8 +24,13 @@ export class TaskService {
 
   // Tasks
 
-  getTasks() {
-    return this.tasks.slice();
+  getTasks(): Observable<Array<Task>> {
+    const url = "http://"+this.taskServicePath+"/tasks";
+    return this.http.get<Array<Task>>(url)
+      .pipe(
+        publishReplay(3), // this tells Rx to cache the latest emitted
+        refCount());
+    // return this.tasks.slice();
   }
 
   addNewTask(desc) {
