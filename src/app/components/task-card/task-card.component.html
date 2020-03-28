@@ -7,6 +7,7 @@
   <div class="mdl-card__actions mdl-card--border" style="padding-left: 30px">
     {{task.timestamp.getMonth()}}/{{task.timestamp.getDate()}}/{{task.timestamp.getFullYear()}}
     <div class="mdl-layout-spacer"></div>
+    <i *ngIf="task.isCompleted" (click)="rehydrate()" class="material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">publish</i>
     <i (click)="delete()" class="material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">close</i>
   </div>
 </div>

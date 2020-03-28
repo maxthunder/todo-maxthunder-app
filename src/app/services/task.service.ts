@@ -53,6 +53,13 @@ export class TaskService {
     return this.getCompletedTasks();
   }
 
+  rehydrateTask(task) {
+    task.isCompleted = false;
+    this.tasks.push(task);
+    this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
+    return this.getCompletedTasks();
+  }
+
   deleteCompletedTask(task) {
     this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
     return this.getCompletedTasks();

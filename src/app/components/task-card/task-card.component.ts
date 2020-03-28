@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { Task } from 'src/app/task';
 import {TaskService} from "../../services/task.service";
 
@@ -9,7 +9,7 @@ import {TaskService} from "../../services/task.service";
 })
 export class TaskCardComponent {
   @Input() task: Task;
-  @Output() refreshAfterDelete: EventEmitter<null> = new EventEmitter<null>();
+  @Output() refreshCompletedTasks: EventEmitter<null> = new EventEmitter<null>();
   isCompleted: boolean;
 
   constructor(private taskService: TaskService) {
@@ -22,7 +22,14 @@ export class TaskCardComponent {
     } else {
       this.taskService.deleteCompletedTask(this.task);
     }
-    this.refreshAfterDelete.emit();
+    this.refreshCompletedTasks.emit();
+  }
+
+  rehydrate() {
+    if (this.task.isCompleted) {
+      this.taskService.rehydrateTask(this.task);
+      this.refreshCompletedTasks.emit();
+    }
   }
 
 }

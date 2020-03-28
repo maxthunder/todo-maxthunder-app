@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Task } from 'src/app/task';
 import {TaskService} from "../../services/task.service";
 
@@ -27,18 +27,6 @@ export class TaskListComponent {
   delete(task) {
     this.tasks = this.taskService.deleteTask(task);
   }
-
-  // toggleTask(task) {
-  //   task.isMarked = !task.isMarked;
-  // }
-  //
-  // toggleAllTasks() {
-  //   this.taskService.toggleAllTasks()
-  // }
-  //
-  // isAllTasksChecked() {
-  //   return this.taskService.isAllTasksChecked()
-  // }
 
   deleteAllTasks() {
     return this.taskService.deleteAllTasks()

@@ -7,6 +7,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import {FormsModule} from "@angular/forms";
 import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
 import { TaskCardComponent } from './components/task-card/task-card.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -15,11 +16,15 @@ import { TaskCardComponent } from './components/task-card/task-card.component';
     CompletedTasksComponent,
     TaskCardComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    FormsModule,
+    CommonModule,
+    CommonModule,
+    CommonModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

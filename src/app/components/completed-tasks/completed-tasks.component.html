@@ -1,8 +1,8 @@
-<div class="mdl-grid">
+<div class="mdl-grid" style="padding-left: 5%">
   <div *ngFor="let task of completedTasks">
     <div class="mdl-cell mdl-cell--4-col"></div>
     <div class="mdl-cell mdl-cell--4-col">
-      <app-task-card [task]="task" (refreshAfterDelete)="getAllCompletedTasks()"></app-task-card>
+      <app-task-card [task]="task" (refreshCompletedTasks)="getAllCompletedTasks()"></app-task-card>
     </div>
     <div class="mdl-cell mdl-cell--4-col"></div>
   </div>
@@ -13,6 +13,7 @@
   <div class="mdl-cell mdl-cell--4-col"></div>
 
   <div class="mdl-cell mdl-cell--4-col"></div>
-  <div class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">Add New Tasks</button></div>
+  <div *ngIf="tasks.length > 0" class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">To Do List</button></div>
+  <div *ngIf="tasks.length == 0"  class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">Add New Tasks</button></div>
   <div class="mdl-cell mdl-cell--4-col"></div>
 </div>

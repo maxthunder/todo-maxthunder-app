@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import {Task} from "../../task";
 import {TaskService} from "../../services/task.service";
 
@@ -8,12 +8,13 @@ import {TaskService} from "../../services/task.service";
   styleUrls: ['./completed-tasks.component.css']
 })
 export class CompletedTasksComponent {
+  @Output() refreshAfterRehydration: EventEmitter<null> = new EventEmitter<null>();
+  tasks: Array<Task>;
   completedTasks: Array<Task>;
-  description: string;
 
   constructor(private taskService: TaskService) {
-    // sanitize tasks
-    this.getAllCompletedTasks();
+    this.tasks = this.taskService.getTasks();
+    this.getAllCompletedTasks()
     this.completedTasks.forEach(function (task) {
       task.isCompleted = true;
     });
@@ -21,5 +22,10 @@ export class CompletedTasksComponent {
 
   getAllCompletedTasks() {
     this.completedTasks = this.taskService.getCompletedTasks();
+  }
+
+  rehydrateTask(task) {
+    this.taskService.rehydrateTask(task);
+    this.refreshAfterRehydration.emit();
   }
 }
