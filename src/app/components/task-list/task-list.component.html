@@ -1,0 +1,32 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col"></div>
+  <div class="mdl-cell mdl-cell--4-col">
+    <form style="margin-bottom: 5px;" (submit)="add()">
+      <span>
+        <input name="description" [(ngModel)]="description" class="mdl-textfield__input" type="text" placeholder="Add New Task..."/>
+      </span>
+    </form>
+    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp w-100">
+      <thead>
+        <tr *ngIf="tasks.length > 0">
+          <th class="mdl-data-table__cell--non-numeric">
+            <input (click)="toggleAllTasks()" [checked]="isAllTasksChecked()"  type="checkbox">
+          </th>
+          <th class="mdl-data-table__cell--non-numeric"><i>Select All</i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td  class="mdl-data-table__cell--non-numeric">
+            <input (click)="toggleTask(task)" [checked]="task.isMarked" type="checkbox">
+          </td>
+          <td>{{task.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mdl-cell mdl-cell--4-col"></div>
+</div>
+
+
+<!--    <img src="../../../assets/add_box-24px.svg" (click)="addNewTask()">-->
