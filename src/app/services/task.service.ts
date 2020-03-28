@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import { Task } from '../task';
 
 @Injectable({
@@ -7,52 +7,55 @@ import { Task } from '../task';
 
 export class TaskService {
   private readonly tasks: Array<Task>;
+  private readonly completedTasks: Array<Task>;
 
   constructor() {
     this.tasks = [];
+    this.completedTasks = [];
   }
+
+
+  // Tasks
 
   getTasks() {
     return this.tasks.slice();
   }
 
   addNewTask(desc) {
-    let task: Task = {description : desc, isMarked: false};
+    let task: Task = {description : desc, timestamp : new Date(), isCompleted: false};
     this.tasks.push(task);
     return this.getTasks();
   }
 
   deleteTask(task) {
-    // TODO replace with service call
+    this.addNewCompletedTask(task);
     this.tasks.splice(this.tasks.indexOf(task), 1);
     return this.getTasks();
   }
 
-  toggleAllTasks() {
-    this.tasks.forEach(function (task) {
-      task.isMarked = !task.isMarked;
-    })
+  deleteAllTasks() {
+    for (const task of this.tasks) {
+      this.deleteTask(task);
+    }
   }
 
-  isAllTasksChecked(): boolean {
-    let flag: boolean = true;
-    this.tasks.forEach(function (task) {
-      if (!task.isMarked) flag = false;
-    });
-    return flag;
+
+  // Completed Tasks
+
+  getCompletedTasks() {
+    return this.completedTasks.slice();
   }
 
-  isAllTasksUnchecked(): boolean {
-    let flag: boolean = true;
-    this.tasks.forEach(function (task) {
-      if (task.isMarked) flag = false;
-    });
-    return flag;
+  addNewCompletedTask(task: Task) {
+    task.timestamp = new Date();
+    task.isCompleted = true;
+    this.completedTasks.push(task);
+    return this.getCompletedTasks();
   }
 
-  deleteAllMarkedTasks() {
-    for (const task of this.tasks)
-      if (task.isMarked)
-        this.deleteTask(task);
+  deleteCompletedTask(task) {
+    this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
+    return this.getCompletedTasks();
   }
+
 }

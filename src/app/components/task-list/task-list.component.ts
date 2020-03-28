@@ -12,6 +12,10 @@ export class TaskListComponent {
   description: string;
 
   constructor(private taskService: TaskService) {
+    this.getAllTasks();
+  }
+
+  getAllTasks() {
     this.tasks = this.taskService.getTasks();
   }
 
@@ -24,19 +28,27 @@ export class TaskListComponent {
     this.tasks = this.taskService.deleteTask(task);
   }
 
-  toggleTask(task) {
-    task.isMarked = !task.isMarked;
+  // toggleTask(task) {
+  //   task.isMarked = !task.isMarked;
+  // }
+  //
+  // toggleAllTasks() {
+  //   this.taskService.toggleAllTasks()
+  // }
+  //
+  // isAllTasksChecked() {
+  //   return this.taskService.isAllTasksChecked()
+  // }
+
+  deleteAllTasks() {
+    return this.taskService.deleteAllTasks()
   }
 
-  toggleAllTasks() {
-    this.taskService.toggleAllTasks()
-  }
+  // Test Data
 
-  isAllTasksChecked() {
-    return this.taskService.isAllTasksChecked()
-  }
-
-  deleteAllMarkTasks() {
-    return this.taskService.deleteAllMarkedTasks()
+  generateTestData() {
+    this.taskService.addNewTask("Walk the dog.");
+    this.taskService.addNewTask("Wash the dishes.");
+    this.taskService.addNewTask("Mow the lawn.");
   }
 }

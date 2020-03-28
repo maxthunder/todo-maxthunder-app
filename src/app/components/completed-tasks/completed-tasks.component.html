@@ -1,1 +1,18 @@
-<p>completed-tasks works!</p>
+<div class="mdl-grid">
+  <div *ngFor="let task of completedTasks">
+    <div class="mdl-cell mdl-cell--4-col"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+      <app-task-card [task]="task" (refreshAfterDelete)="getAllCompletedTasks()"></app-task-card>
+    </div>
+    <div class="mdl-cell mdl-cell--4-col"></div>
+  </div>
+</div>
+<div *ngIf="completedTasks.length == 0" class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col"></div>
+  <div class="mdl-cell mdl-cell--4-col"><h2><i>No Completed Tasks At This Time...</i></h2></div>
+  <div class="mdl-cell mdl-cell--4-col"></div>
+
+  <div class="mdl-cell mdl-cell--4-col"></div>
+  <div class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">Add New Tasks</button></div>
+  <div class="mdl-cell mdl-cell--4-col"></div>
+</div>

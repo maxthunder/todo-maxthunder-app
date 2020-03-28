@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import {FormsModule} from "@angular/forms";
 import { CompletedTasksComponent } from './components/completed-tasks/completed-tasks.component';
+import { TaskCardComponent } from './components/task-card/task-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskListComponent,
     CompletedTasksComponent,
+    TaskCardComponent,
   ],
     imports: [
         BrowserModule,

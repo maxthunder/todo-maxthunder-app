@@ -1,4 +1,5 @@
 export interface Task {
   description: string;
-  isMarked: boolean;
+  timestamp: Date;
+  isCompleted: boolean;
 }

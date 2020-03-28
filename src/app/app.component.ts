@@ -11,11 +11,7 @@ export class AppComponent {
 
   constructor(private taskService: TaskService) { }
 
-  hasMarkedTasks() {
-    return !this.taskService.isAllTasksUnchecked();
-  }
-
-  deleteAllMarkedTasks() {
-    this.taskService.deleteAllMarkedTasks();
+  hasCompletedTasks(): boolean {
+    return this.taskService.getCompletedTasks().length > 0;
   }
 }
