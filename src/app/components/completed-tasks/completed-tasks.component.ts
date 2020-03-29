@@ -1,8 +1,7 @@
 import {Component, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {Task} from "../../models/task";
 import {TaskService} from "../../services/task.service";
-import {takeUntil} from "rxjs/operators";
-import {HttpErrorResponse} from "@angular/common/http";
+import {take} from "rxjs/operators";
 import {Subject} from "rxjs";
 
 @Component({
@@ -17,20 +16,23 @@ export class CompletedTasksComponent implements OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
   constructor(private taskService: TaskService) {
-    this.taskService.getTasks()
-      .pipe(takeUntil(this.unsubscribe$))
+    this.taskService.loadActiveTasks()
+      .pipe(take(1))
       .subscribe(
-        response => {
-          this.tasks = response
+        data => this.tasks = data,
+        err => console.error(err),
+      );
+    this.taskService.loadCompletedTasks()
+      .pipe(take(1))
+      .subscribe(
+        data => {
+          this.completedTasks = data;
+          this.completedTasks.forEach( (task) => {
+            task.isCompleted = true;
+          });
         },
-        (error: HttpErrorResponse) => {
-          console.error("Unable to establish connection with ToDo REST service")
-        });
-
-    this.getAllCompletedTasks();
-    this.completedTasks.forEach(function (task) {
-      task.isCompleted = true;
-    });
+        err => console.error(err),
+      );
   }
 
   ngOnDestroy(): void {
@@ -39,7 +41,12 @@ export class CompletedTasksComponent implements OnDestroy {
   }
 
   getAllCompletedTasks() {
-    this.completedTasks = this.taskService.getCompletedTasks();
+    this.taskService.loadCompletedTasks()
+      .pipe(take(1))
+      .subscribe(
+        data => this.completedTasks = data,
+        err => console.error(err),
+      );
   }
 
   rehydrateTask(task) {

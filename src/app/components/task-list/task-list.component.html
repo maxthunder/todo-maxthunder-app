@@ -12,7 +12,7 @@
   <div *ngFor="let task of tasks">
     <div class="mdl-cell mdl-cell--2-col"></div>
     <div class="mdl-cell mdl-cell--8-col">
-      <app-task-card [task]="task" (refreshCompletedTasks)="getAllTasks()"></app-task-card>
+      <app-task-card [task]="task" (refreshCompletedTasks)="loadActiveTasks()"></app-task-card>
     </div>
     <div class="mdl-cell mdl-cell--2-col"></div>
   </div>
@@ -20,6 +20,6 @@
 
 <div *ngIf="tasks.length == 0" class="mdl-grid">
   <div class="mdl-cell mdl-cell--4-col"></div>
-  <div class="mdl-cell mdl-cell--4-col"><h2><i><button (click)="generateTestData(); getAllTasks()">Generate Test Data</button></i></h2></div>
+  <div class="mdl-cell mdl-cell--4-col"><h2><i><button (click)="generateTestData(); loadActiveTasks()">Generate Test Data</button></i></h2></div>
   <div class="mdl-cell mdl-cell--4-col"></div>
 </div>

@@ -1,9 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
 import {Task} from 'src/app/models/task';
 import {TaskService} from "../../services/task.service";
-import {takeUntil} from "rxjs/operators";
-import {HttpErrorResponse} from "@angular/common/http";
+import {take, takeUntil,} from "rxjs/operators";
 
 @Component({
   selector: 'app-task-list',
@@ -16,7 +15,7 @@ export class TaskListComponent implements OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
   constructor(private taskService: TaskService) {
-    this.getAllTasks();
+    this.loadActiveTasks();
   }
 
   ngOnDestroy(): void {
@@ -24,43 +23,24 @@ export class TaskListComponent implements OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  getAllTasks() {
-    // this.tasks = this.taskService.getTasks();
-    this.taskService.getTasks()
-      .pipe(takeUntil(this.unsubscribe$))
+  loadActiveTasks() {
+    this.taskService.loadActiveTasks()
+      .pipe(take(1))
       .subscribe(
-        response => {
-          this.tasks = response;
-        },
-        (error: HttpErrorResponse) => {
-          console.error("Unable to establish connection with ToDo REST service");
-        });
+        data => this.tasks = data,
+        err => console.error(err),
+      );
   }
 
   add() {
-    this.taskService.addNewTask(this.description)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        response => {
-          this.tasks = response
-        },
-        (error: HttpErrorResponse) => {
-          console.error("Unable to establish connection with ToDo REST service")
-        });
-
+    this.taskService.addNewTask(this.description);
+    this.loadActiveTasks();
     this.description = '';
   }
 
   delete(task) {
-    this.taskService.deleteTask(task)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        response => {
-          this.tasks = response
-        },
-        (error: HttpErrorResponse) => {
-          console.error("Unable to establish connection with ToDo REST service")
-        });
+    this.taskService.completeTask(task);
+    this.loadActiveTasks();
   }
 
   deleteAllTasks() {

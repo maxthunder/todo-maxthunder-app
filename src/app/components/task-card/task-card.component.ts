@@ -18,7 +18,7 @@ export class TaskCardComponent {
 
   delete() {
     if (!this.task.isCompleted) {
-      this.taskService.deleteTask(this.task);
+      this.taskService.completeTask(this.task);
     } else {
       this.taskService.deleteCompletedTask(this.task);
     }

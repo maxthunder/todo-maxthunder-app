@@ -13,68 +13,63 @@ import {catchError, delay, publishReplay, refCount, retry} from "rxjs/operators"
 export class TaskService {
   private taskServicePath:string = environment.hostname + ":" + environment.port;
 
-  private readonly tasks: Array<Task>;
-  private readonly completedTasks: Array<Task>;
+  private tasks: Array<Task>;
+  private completedTasks: Array<Task>;
 
   constructor(private http: HttpClient) {
     this.tasks = [];
     this.completedTasks = [];
   }
 
-
   // Tasks
 
-  getTasks(): Observable<Array<Task>> {
-    const url = "http://"+this.taskServicePath+"/tasks";
-    return this.http.get<Array<Task>>(url)
-      .pipe(
-        publishReplay(3), // this tells Rx to cache the latest emitted
-        refCount());
-    // return this.tasks.slice();
+  // getAllTasks() {
+  //   return this.tasks.slice();
+  // }
+
+  loadActiveTasks(): Observable<Array<Task>> {
+    const url = "http://"+this.taskServicePath+"/activeTasks";
+    return this.http.get<Array<Task>>(url);
   }
 
-  addNewTask(desc) {
-    let task: Task = {description : desc, timestamp : new Date(), isCompleted: false};
+  addNewTask(desc): void {
+    let task: Task = {description : desc, timestamp : new Date().toDateString(), isCompleted: false};
     this.tasks.push(task);
-    return this.getTasks();
   }
 
-  deleteTask(task) {
+  completeTask(task): void {
     this.addNewCompletedTask(task);
     this.tasks.splice(this.tasks.indexOf(task), 1);
-    return this.getTasks();
   }
 
-  deleteAllTasks() {
+  deleteAllTasks(): void {
     for (const task of this.tasks) {
-      this.deleteTask(task);
+      this.completeTask(task);
     }
   }
 
 
   // Completed Tasks
 
-  getCompletedTasks() {
-    return this.completedTasks.slice();
+  loadCompletedTasks(): Observable<Array<Task>> {
+    const url = "http://"+this.taskServicePath+"/completedTasks";
+    return this.http.get<Array<Task>>(url);
   }
 
-  addNewCompletedTask(task: Task) {
-    task.timestamp = new Date();
+  addNewCompletedTask(task: Task): void {
+    task.timestamp = new Date().toDateString();
     task.isCompleted = true;
     this.completedTasks.push(task);
-    return this.getCompletedTasks();
   }
 
-  rehydrateTask(task) {
+  rehydrateTask(task): void {
     task.isCompleted = false;
     this.tasks.push(task);
     this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
-    return this.getCompletedTasks();
   }
 
-  deleteCompletedTask(task) {
+  deleteCompletedTask(task): void {
     this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
-    return this.getCompletedTasks();
   }
 
 }
