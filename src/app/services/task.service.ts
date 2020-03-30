@@ -11,7 +11,8 @@ import {catchError, delay, publishReplay, refCount, retry, take} from "rxjs/oper
 })
 
 export class TaskService {
-  private taskServicePath:string = environment.hostname + ":" + environment.port;
+  // private taskServicePath:string = environment.hostname + ":" + environment.port;
+  private taskServicePath:string = environment.hostname;
 
   private tasks: Array<Task>;
   private completedTasks: Array<Task>;
