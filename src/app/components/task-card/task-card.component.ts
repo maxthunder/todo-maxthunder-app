@@ -10,7 +10,7 @@ import {take} from "rxjs/operators";
 })
 export class TaskCardComponent {
   @Input() task: Task;
-  @Output() refreshCompletedTasks: EventEmitter<null> = new EventEmitter<null>();
+  @Output() refreshTasks: EventEmitter<null> = new EventEmitter<null>();
   isCompleted: boolean;
 
   constructor(private taskService: TaskService) {
@@ -19,22 +19,32 @@ export class TaskCardComponent {
 
   delete() {
     if (!this.task.isCompleted) {
-      this.taskService.completeTask(this.task)
+      this.task.isCompleted=true;
+      this.taskService.updateTask(this.task)
         .pipe(take(1))
         .subscribe(
-          () => this.refreshCompletedTasks.emit(),
+          () => this.refreshTasks.emit(),
           err => console.error(err),
         );
     } else {
-      this.taskService.deleteCompletedTask(this.task);
-      this.refreshCompletedTasks.emit();
+      this.taskService.deleteTask(this.task)
+        .pipe(take(1))
+        .subscribe(
+          () => this.refreshTasks.emit(),
+          err => console.error(err),
+        );
     }
   }
 
   rehydrate() {
     if (this.task.isCompleted) {
-      this.taskService.rehydrateTask(this.task);
-      this.refreshCompletedTasks.emit();
+      this.task.isCompleted=false;
+      this.taskService.updateTask(this.task)
+        .pipe(take(1))
+        .subscribe(
+          () => this.refreshTasks.emit(),
+          err => console.error(err),
+        );
     }
   }
 

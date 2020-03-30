@@ -27,49 +27,36 @@ export class TaskService {
   //   return this.tasks.slice();
   // }
 
+  addNewTask(desc): Observable<any> {
+    let task: Task = {description : desc};
+    const url = "http://"+this.taskServicePath+"/tasks";
+    return this.http.post<any>(url, task)
+  }
+
+  updateTask(task): Observable<any> {
+    const url = "http://"+this.taskServicePath+"/tasks";
+    return this.http.put<any>(url, task)
+  }
+
+  deleteTask(task): Observable<any> {
+      const url = "http://"+this.taskServicePath+"/tasks?taskId="+task.taskId;
+      return this.http.delete<any>(url);
+  }
+
+
   loadActiveTasks(): Observable<Array<Task>> {
     const url = "http://"+this.taskServicePath+"/activeTasks";
     return this.http.get<Array<Task>>(url);
   }
-
-  addNewTask(desc): Observable<Array<Task>> {
-    let task: Task = {description : desc};
-    const url = "http://"+this.taskServicePath+"/activeTasks";
-    return this.http.post<Array<Task>>(url, task)
-  }
-
-  completeTask(task): Observable<Array<Task>> {
-    const url = "http://"+this.taskServicePath+"/activeTasks";
-    return this.http.put<Array<Task>>(url, task)
-  }
-
-  deleteAllTasks(): void {
-    for (const task of this.tasks) {
-      this.completeTask(task);
-    }
-  }
-
-
-  // Completed Tasks
 
   loadCompletedTasks(): Observable<Array<Task>> {
     const url = "http://"+this.taskServicePath+"/completedTasks";
     return this.http.get<Array<Task>>(url);
   }
 
-  addNewCompletedTask(task: Task): void {
-    task.timestamp = new Date().toDateString();
-    task.isCompleted = true;
-    this.completedTasks.push(task);
-  }
-
   rehydrateTask(task): void {
     task.isCompleted = false;
     this.tasks.push(task);
-    this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
-  }
-
-  deleteCompletedTask(task): void {
     this.completedTasks.splice(this.completedTasks.indexOf(task), 1);
   }
 

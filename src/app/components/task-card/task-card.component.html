@@ -1,10 +1,10 @@
 <div [ngClass]="{'active-task-card-event' : !task.isCompleted, 'completed-task-card-event' : task.isCompleted}" class="task-card-event mdl-card mdl-shadow--2dp" >
   <div class="mdl-card__title mdl-card--expand">
-    <h4>
+    <div  style="font-size: 14pt">
       {{task.description}}
-    </h4>
+    </div>
   </div>
-  <div class="mdl-card__actions mdl-card--border" style="padding-left: 30px">
+  <div class="mdl-card__actions mdl-card--border" style="padding-left: 30px; font-size: 10pt">
 <!--    {{task.timestamp.getMonth()}}/{{task.timestamp.getDate()}}/{{task.timestamp.getFullYear()}}-->
     {{task.timestamp}}
     <div class="mdl-layout-spacer"></div>

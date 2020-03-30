@@ -12,7 +12,7 @@
   <div *ngFor="let task of tasks">
     <div class="mdl-cell mdl-cell--2-col"></div>
     <div class="mdl-cell mdl-cell--8-col">
-      <app-task-card [task]="task" (refreshCompletedTasks)="loadActiveTasks()"></app-task-card>
+      <app-task-card [task]="task" (refreshTasks)="loadActiveTasks()"></app-task-card>
     </div>
     <div class="mdl-cell mdl-cell--2-col"></div>
   </div>

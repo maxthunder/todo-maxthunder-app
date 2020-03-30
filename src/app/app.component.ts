@@ -25,15 +25,14 @@ export class AppComponent implements OnDestroy{
   }
 
   hasCompletedTasks() {
-    // this.taskService.loadCompletedTasks()
-    //   .pipe(take(1))
-    //   .subscribe(
-    //     data => {
-    //       this.completedTasks = data
-    //     },
-    //     err => {
-    //       console.error("Unable to establish connection with ToDo REST service")
-    //     });
+    this.taskService.loadCompletedTasks()
+      .pipe(take(1))
+      .subscribe(
+        data => {
+          this.completedTasks = data;
+        },
+        err => console.error(err),
+      );
 
     return this.completedTasks.length > 0;
   }

@@ -27,9 +27,6 @@ export class CompletedTasksComponent implements OnDestroy {
       .subscribe(
         data => {
           this.completedTasks = data;
-          this.completedTasks.forEach( (task) => {
-            task.isCompleted = true;
-          });
         },
         err => console.error(err),
       );
@@ -41,6 +38,15 @@ export class CompletedTasksComponent implements OnDestroy {
   }
 
   getAllCompletedTasks() {
+    this.taskService.loadCompletedTasks()
+      .pipe(take(1))
+      .subscribe(
+        data => this.completedTasks = data,
+        err => console.error(err),
+      );
+  }
+
+  deleteCompletedTask() {
     this.taskService.loadCompletedTasks()
       .pipe(take(1))
       .subscribe(
