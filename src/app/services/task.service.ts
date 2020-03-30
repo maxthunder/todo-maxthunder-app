@@ -38,9 +38,9 @@ export class TaskService {
     return this.http.post<Array<Task>>(url, task)
   }
 
-  completeTask(task): void {
-    this.addNewCompletedTask(task);
-    this.tasks.splice(this.tasks.indexOf(task), 1);
+  completeTask(task): Observable<Array<Task>> {
+    const url = "http://"+this.taskServicePath+"/activeTasks";
+    return this.http.put<Array<Task>>(url, task)
   }
 
   deleteAllTasks(): void {

@@ -45,7 +45,12 @@ export class TaskListComponent implements OnDestroy {
   }
 
   delete(task) {
-    this.taskService.completeTask(task);
+    this.taskService.completeTask(task)
+      .pipe(take(1))
+      .subscribe(
+        data => this.tasks = data,
+        err => console.error(err),
+      );
     this.loadActiveTasks();
   }
 

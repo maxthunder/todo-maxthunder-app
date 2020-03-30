@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { Task } from 'src/app/models/task';
 import {TaskService} from "../../services/task.service";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-task-card',
@@ -18,11 +19,16 @@ export class TaskCardComponent {
 
   delete() {
     if (!this.task.isCompleted) {
-      this.taskService.completeTask(this.task);
+      this.taskService.completeTask(this.task)
+        .pipe(take(1))
+        .subscribe(
+          () => this.refreshCompletedTasks.emit(),
+          err => console.error(err),
+        );
     } else {
       this.taskService.deleteCompletedTask(this.task);
+      this.refreshCompletedTasks.emit();
     }
-    this.refreshCompletedTasks.emit();
   }
 
   rehydrate() {
