@@ -1,5 +1,5 @@
 export interface Task {
   description: string;
-  timestamp: string;
-  isCompleted: boolean;
+  timestamp?: string;
+  isCompleted?: boolean;
 }

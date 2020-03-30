@@ -47,7 +47,7 @@ export class TaskListComponent implements OnDestroy {
     return this.taskService.deleteAllTasks()
   }
 
-  // Test Data
+  // Test Data - button only appears if there is no data
 
   generateTestData() {
     this.taskService.addNewTask("Walk the dog.");

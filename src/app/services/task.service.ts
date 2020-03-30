@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Task} from '../models/task';
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {catchError, delay, publishReplay, refCount, retry} from "rxjs/operators";
+import {catchError, delay, publishReplay, refCount, retry, take} from "rxjs/operators";
 
 
 @Injectable({
@@ -32,9 +32,18 @@ export class TaskService {
     return this.http.get<Array<Task>>(url);
   }
 
-  addNewTask(desc): void {
-    let task: Task = {description : desc, timestamp : new Date().toDateString(), isCompleted: false};
-    this.tasks.push(task);
+  addNewTask(desc) {
+    let task: Task = {description : desc};
+    const url = "http://"+this.taskServicePath+"/activeTasks";
+    this.http.post<Array<Task>>(url, task)
+      .pipe(take(1))
+      .subscribe(
+        data => {
+          this.tasks = data;
+          alert("hello: in post callback: " + this.tasks.length);
+        },
+        err => console.error(err),
+      );
   }
 
   completeTask(task): void {
