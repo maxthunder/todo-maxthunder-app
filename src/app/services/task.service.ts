@@ -32,18 +32,10 @@ export class TaskService {
     return this.http.get<Array<Task>>(url);
   }
 
-  addNewTask(desc) {
+  addNewTask(desc): Observable<Array<Task>> {
     let task: Task = {description : desc};
     const url = "http://"+this.taskServicePath+"/activeTasks";
-    this.http.post<Array<Task>>(url, task)
-      .pipe(take(1))
-      .subscribe(
-        data => {
-          this.tasks = data;
-          alert("hello: in post callback: " + this.tasks.length);
-        },
-        err => console.error(err),
-      );
+    return this.http.post<Array<Task>>(url, task)
   }
 
   completeTask(task): void {

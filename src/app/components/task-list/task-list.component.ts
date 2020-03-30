@@ -33,9 +33,15 @@ export class TaskListComponent implements OnDestroy {
   }
 
   add() {
-    this.taskService.addNewTask(this.description);
-    this.loadActiveTasks();
-    this.description = '';
+    this.taskService.addNewTask(this.description)
+      .pipe(take(1))
+      .subscribe(
+        () => {
+          this.loadActiveTasks();
+          this.description = '';
+        },
+        err => console.error(err),
+      );
   }
 
   delete(task) {
@@ -45,13 +51,5 @@ export class TaskListComponent implements OnDestroy {
 
   deleteAllTasks() {
     return this.taskService.deleteAllTasks()
-  }
-
-  // Test Data - button only appears if there is no data
-
-  generateTestData() {
-    this.taskService.addNewTask("Walk the dog.");
-    this.taskService.addNewTask("Wash the dishes.");
-    this.taskService.addNewTask("Mow the lawn.");
   }
 }
