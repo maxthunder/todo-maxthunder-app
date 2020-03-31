@@ -1,41 +1,40 @@
 <!-- Always shows a header, even in smaller screens. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" style="background: #000000;">
+  <header class="mdl-layout__header" style="background-color: #FFD034">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title"><a class="mdl-navigation__link" [routerLink]="['/']">To Do List</a></span>
+      <span class="task-title mdl-layout-title mdl-layout--small-screen-only" style="padding-bottom: 10px;"><a class="mdl-navigation__link" [routerLink]="['/']"><img src="../assets/maxthunder-logo.png" height="48" width="48"/></a></span>
+      <span class="task-title mdl-layout-title mdl-layout--large-screen-only" style="padding-bottom: 10px;"><a class="mdl-navigation__link" [routerLink]="['/']"><img src="../assets/maxthunder-todolist-logo.png" height="48" width="458"/></a></span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" style="font-size: 16pt" [routerLink]="['/']">Home</a>
-        <a class="mdl-navigation__link" style="font-size: 16pt" [routerLink]="['/completedTasks']">Completed Tasks</a>
+        <a class="task-text-primary task-header-button" [routerLink]="['/']">Home</a>
+        <a class="task-text-primary task-header-button" [routerLink]="['/completedTasks']">Completed Tasks</a>
       </nav>
     </div>
   </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Todo</span>
+  <div class="mdl-layout__drawer" style="background: #FFD034;">
+    <span class="mdl-layout-title"><img src="../assets/maxthunder-logo.png" height="48" width="48"/></span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" style="font-size: 16pt" [routerLink]="['/']">Home</a>
-      <a class="mdl-navigation__link" style="font-size: 16pt" [routerLink]="['/completedTasks']">Completed Tasks</a>
+      <a class="task-text-primary task-header-button" [routerLink]="['/']">Home</a>
+      <a class="task-text-primary task-header-button" [routerLink]="['/completedTasks']">Completed Tasks</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
-    <div class="page-content">
+    <div class="page-content" style="min-height: 80%">
       <router-outlet></router-outlet>
     </div>
-    <footer class="mdl-mini-footer" style="max-height: 10px;padding-top: 10px;margin-top: 50px">
+    <footer class="mdl-mini-footer">
       <div class="mdl-mini-footer__left-section">
-        <div class="mdl-logo">To Do List</div>
+        <div class="mdl-logo"><img src="../assets/maxthunder-logo.png" height="48" width="48"/></div>
         <ul class="mdl-mini-footer__link-list">
-          <li><a [routerLink]="['/']">Home</a></li>
-          <li><a [routerLink]="['/completedTasks']">Completed Tasks</a></li>
-          <li><a href="https://github.com/maxthunder">Developer's GitHub Page</a></li>
+          <li><a [routerLink]="['/']" style="color: white">Home</a></li>
+          <li><a [routerLink]="['/completedTasks']" style="color: white">Completed Tasks</a></li>
+          <li><a href="https://github.com/maxthunder" style="color: white">Developer's GitHub Page</a></li>
         </ul>
       </div>
     </footer>
   </main>
-
-
 </div>
 

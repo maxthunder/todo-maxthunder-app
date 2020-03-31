@@ -1,13 +1,13 @@
 <div [ngClass]="{'active-task-card-event' : !task.isCompleted, 'completed-task-card-event' : task.isCompleted}" class="task-card task-card-event mdl-card mdl-shadow--2dp" >
   <div class="mdl-card__title mdl-card--expand">
-    <div>
+    <div style="font-size: 24pt;" [ngClass]="{'task-text-primary' : !task.isCompleted, 'task-text-secondary' : task.isCompleted}">
       {{task.description}}
     </div>
   </div>
-  <div class="mdl-card__actions mdl-card--border" style="padding-left: 30px; font-size: 9pt">
+  <div class="mdl-card__actions mdl-card--border" style="padding-left: 30px; font-size: 9pt;border-color: black" [ngClass]="{'task-button-primary' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}" >
     {{task.timestamp}}
     <div class="mdl-layout-spacer"></div>
-    <div *ngIf="task.isCompleted" (click)="rehydrate()" class="material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">publish</div>
-    <div id="card-delete-button" (click)="delete()" class="icon material-icons mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="padding-top: 10px">close</div>
+    <div *ngIf="task.isCompleted" (click)="rehydrate()" [ngClass]="{'task-button-primary' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}" class="task-button icon material-icons mdl-button mdl-js-button mdl-js-ripple-effect">publish</div>
+    <div (click)="delete()" [ngClass]="{'task-button-task-button-primary-colored' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}" class="task-button icon material-icons mdl-button mdl-js-button mdl-js-ripple-effect">close</div>
   </div>
 </div>

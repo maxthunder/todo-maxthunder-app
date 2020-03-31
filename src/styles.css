@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Port Lligat Sans';
+  src: url(assets/PortLligatSans-Regular.ttf) format("opentype");
+}
+
+* {
+  font-family: 'Port Lligat Sans', Arial, sans-serif;
+  color: #616161;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .mdl-navigation__link {
   text-decoration: none;
   font-size: 32px;
@@ -7,7 +20,6 @@
 
 a:hover {
   opacity: 0.75;
-  color: white;
 }
 
 .button, button {
@@ -18,12 +30,10 @@ a:hover {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  background-color: #673AB7;
+  background-color: #1089F5;
   color: white;
   border: none;
 }
-
-.
 
 .button:hover, button:hover {
   opacity: 0.75;
@@ -38,17 +48,58 @@ a:hover {
   opacity: 0.75;
 }
 
+.task-title {
+  color: white;
+}
+
 .task-card {
   margin: 10px;
-  font-size: 13pt
+  font-size: 13pt;
+}
+
+.task-header-button {
+  font-size: 16pt;
+  padding: 15px;
+}
+
+.task-text-primary {
+  color: #353535;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.task-text-secondary {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.task-button {
+  padding-top: 10px;
+}
+
+.task-button-primary-colored {
+  color: #0072BB;
+  font-weight: bold;
+}
+
+
+.task-button-primary {
+  /*color: #0072BB;*/
+  color: #000000;
+  font-weight: bold;
+}
+
+.task-button-secondary {
+  color: #FFD034;
 }
 
 .active-task-card-event.mdl-card {
-  background: #3E4EB8;
+  background: #FFD034;
 }
 
-.completed-task-card-event {
-  background: rgba(51, 46, 47, 0.55);
+.completed-task-card-event.mdl-card {
+  background: #0072BB;
 }
 
 .task-card-event > .mdl-card__actions {
@@ -67,9 +118,4 @@ a:hover {
 }
 .task-card-event > .mdl-card__actions > .material-icons {
   padding-right: 10px;
-}
-.task-card-event > .mdl-card__title,
-.task-card-event > .mdl-card__actions,
-.task-card-event > .mdl-card__actions > .mdl-button {
-  color: #fff;
 }
