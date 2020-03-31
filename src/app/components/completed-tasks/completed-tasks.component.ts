@@ -45,18 +45,4 @@ export class CompletedTasksComponent implements OnDestroy {
         err => console.error(err),
       );
   }
-
-  deleteCompletedTask() {
-    this.taskService.loadCompletedTasks()
-      .pipe(take(1))
-      .subscribe(
-        data => this.completedTasks = data,
-        err => console.error(err),
-      );
-  }
-
-  rehydrateTask(task) {
-    this.taskService.rehydrateTask(task);
-    this.refreshAfterRehydration.emit();
-  }
 }
