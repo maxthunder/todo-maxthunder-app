@@ -2,15 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const environment = {
-//   production: false,
-//   hostname: "localhost",
-//   port: 8081
-// };
-
 export const environment = {
   production: false,
+  //   hostname: "localhost",
   hostname: "todo-maxthunder-svc.herokuapp.com",
+  port: 8081
 };
 
 /*

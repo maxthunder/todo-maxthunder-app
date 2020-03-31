@@ -10,7 +10,6 @@ import {Subject} from "rxjs";
   styleUrls: ['./completed-tasks.component.css']
 })
 export class CompletedTasksComponent implements OnDestroy {
-  @Output() refreshAfterRehydration: EventEmitter<null> = new EventEmitter<null>();
   tasks: Array<Task>;
   completedTasks: Array<Task>;
   private unsubscribe$ = new Subject<void>();
