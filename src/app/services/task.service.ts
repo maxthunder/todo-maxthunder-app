@@ -9,7 +9,6 @@ import {Observable} from 'rxjs';
 })
 
 export class TaskService {
-  
   private taskServicePath: string = environment.hostname;
 
   constructor(private http: HttpClient) {}
