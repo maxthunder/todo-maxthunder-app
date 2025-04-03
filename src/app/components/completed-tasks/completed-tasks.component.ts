@@ -10,8 +10,8 @@ import {Subject} from "rxjs";
   styleUrls: ['./completed-tasks.component.css']
 })
 export class CompletedTasksComponent implements OnDestroy {
-  tasks: Array<Task>;
-  completedTasks: Array<Task>;
+  tasks: Task[];
+  completedTasks: Task[];
   private unsubscribe$ = new Subject<void>();
 
   constructor(private taskService: TaskService) {

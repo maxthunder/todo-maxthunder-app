@@ -10,7 +10,7 @@ import {take, takeUntil,} from "rxjs/operators";
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnDestroy {
-  tasks: Array<Task>;
+  tasks: Task[];
   description: string;
   private unsubscribe$ = new Subject<void>();
 
