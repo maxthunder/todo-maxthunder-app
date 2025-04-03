@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  hostname: "todo-maxthunder-svc.herokuapp.com",
+  hostname: "todo-maxthunder-rest-svc.onrender.com",
 };

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //   hostname: "localhost",
-  hostname: "todo-maxthunder-svc.herokuapp.com",
+  // hostname: "localhost",
+  hostname: "todo-maxthunder-rest-svc.onrender.com",
   port: 8081
 };
 
