@@ -1,21 +1,30 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Subject} from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {finalize, Subject} from 'rxjs';
 import {Task} from 'src/app/models/task';
 import {TaskService} from "../../services/task.service";
-import {take, takeUntil,} from "rxjs/operators";
+import {FormControl, UntypedFormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  styleUrls: ['./task-list.component.css'],
 })
-export class TaskListComponent implements OnDestroy {
+export class TaskListComponent implements OnInit, OnDestroy {
+  formGroup: UntypedFormGroup;
+  loading = false
   tasks: Task[];
-  description: string;
+
+
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private taskService: TaskService) {
+  constructor(private _taskService: TaskService) {
     this.loadActiveTasks();
+  }
+
+  ngOnInit(): void {
+    this.formGroup = new UntypedFormGroup({
+      description: new FormControl(''),
+    });
   }
 
   ngOnDestroy(): void {
@@ -24,23 +33,20 @@ export class TaskListComponent implements OnDestroy {
   }
 
   loadActiveTasks() {
-    this.taskService.loadActiveTasks()
-      .pipe(take(1))
-      .subscribe(
-        data => this.tasks = data,
-        err => console.error(err),
-      );
+    this._taskService.loadActiveTasks()
+      .subscribe(data => this.tasks = data);
   }
 
-  add() {
-    this.taskService.addNewTask(this.description)
-      .pipe(take(1))
-      .subscribe(
-        () => {
-          this.loadActiveTasks();
-          this.description = '';
-        },
-        err => console.error(err),
-      );
+  onSubmit(): void {
+    this.loading = true;
+
+    const description = this.formGroup.get('description')?.value as string;
+    if (description.trim()) {
+      this._taskService.addNewTask(description)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe(() => this.loadActiveTasks());
+
+      this.formGroup.patchValue({ description: '' });
+    }
   }
 }

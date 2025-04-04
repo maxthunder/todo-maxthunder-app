@@ -1,9 +1,14 @@
 <div class="mdl-grid" style="padding-left: 5%;">
   <div class="mdl-cell mdl-cell--2-col"></div>
   <div class="mdl-cell mdl-cell--8-col">
-    <form style="margin-bottom: 5px;" (submit)="add()">
+    <form [formGroup]="formGroup" style="margin-bottom: 5px;" (ngSubmit)="onSubmit()">
       <span>
-        <input name="description" [(ngModel)]="description" style="font-size: 32pt;color: #FFFFFF" class="mdl-textfield__input" type="text" placeholder="Add New Task..."/>
+        <input
+          formControlName="description"
+          class="task-list__description mdl-textfield__input"
+          type="text"
+          placeholder="Add New Task..."
+        />
       </span>
     </form>
   </div>
@@ -15,4 +20,12 @@
     </div>
     <div class="mdl-cell mdl-cell--2-col mdl-layout--large-screen-only"></div>
   </div>
+  <div *ngIf="loading" class="task-list__loading-spinner">
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </div>
+
 </div>

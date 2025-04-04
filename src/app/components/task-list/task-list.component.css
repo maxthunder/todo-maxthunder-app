@@ -1,0 +1,8 @@
+.task-list__description {
+  font-size: 32pt;
+  color: #FFFFFF;
+}
+
+.task-list__loading-spinner {
+  margin: 60px 0 0 133px;
+}
