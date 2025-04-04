@@ -9,35 +9,28 @@ import {Observable} from 'rxjs';
 })
 
 export class TaskService {
-  
   private taskServicePath: string = environment.hostname;
 
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
-  addNewTask(desc: string): Observable<any> {
-    let task: Task = {description: desc};
-    const url = 'https://' + this.taskServicePath + '/tasks';
-    return this.http.post<any>(url, task);
+  addNewTask(desc: string): Observable<unknown> {
+    return this._http.post<unknown>('https://' + this.taskServicePath + '/tasks', {description: desc});
   }
 
-  updateTask(task: Task): Observable<any> {
-    const url = 'https://' + this.taskServicePath + '/tasks';
-    return this.http.put<any>(url, task);
+  updateTask(task: Task): Observable<unknown> {
+    return this._http.put<unknown>('https://' + this.taskServicePath + '/tasks', task);
   }
 
-  deleteTask(task: Task): Observable<any> {
-    const url = 'https://' + this.taskServicePath + '/tasks?taskId=' + task.taskId;
-    return this.http.delete<any>(url);
+  deleteTask(task: Task): Observable<unknown> {
+    return this._http.delete<unknown>('https://' + this.taskServicePath + '/tasks?taskId=' + task.taskId);
   }
 
   loadActiveTasks(): Observable<Task[]> {
-    const url = 'https://' + this.taskServicePath + '/activeTasks';
-    return this.http.get<Task[]>(url);
+    return this._http.get<Task[]>('https://' + this.taskServicePath + '/activeTasks');
   }
 
   loadCompletedTasks(): Observable<Task[]> {
-    const url = 'https://' + this.taskServicePath + '/completedTasks';
-    return this.http.get<Task[]>(url);
+    return this._http.get<Task[]>('https://' + this.taskServicePath + '/completedTasks');
   }
 
 }

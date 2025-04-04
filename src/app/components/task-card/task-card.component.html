@@ -7,7 +7,18 @@
   <div class="mdl-card__actions mdl-card--border" style="padding-left: 30px; font-size: 9pt;border-color: black" [ngClass]="{'task-button-primary' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}" >
     {{task.timestamp}}
     <div class="mdl-layout-spacer"></div>
-    <div *ngIf="task.isCompleted" (click)="rehydrate()" [ngClass]="{'task-button-primary' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}" class="task-button icon material-icons mdl-button mdl-js-button mdl-js-ripple-effect">publish</div>
-    <div (click)="delete()" [ngClass]="{'task-button-task-button-primary-colored' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}" class="task-button icon material-icons mdl-button mdl-js-button mdl-js-ripple-effect">close</div>
+    <div
+      *ngIf="task.isCompleted"
+      (click)="rehydrateTask()"
+      [ngClass]="{'task-button-primary' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}"
+      class="task-button icon material-icons mdl-button mdl-js-button mdl-js-ripple-effect">
+      publish
+    </div>
+    <div
+      (click)="closeTask()"
+      [ngClass]="{'task-button-task-button-primary-colored' : !task.isCompleted, 'task-button-secondary' : task.isCompleted}"
+      class="task-button icon material-icons mdl-button mdl-js-button mdl-js-ripple-effect">
+        close
+    </div>
   </div>
 </div>

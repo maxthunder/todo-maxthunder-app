@@ -1,0 +1,7 @@
+.notification-service-snackbar-panel-class {/* styles notification service snackbar */
+    background-color: #4CAF50; /* Green background */
+    color: white;               /* White text */
+    font-size: 16px;            /* Larger text */
+    border-radius: 8px;         /* Rounded corners */
+    padding: 10px 20px;
+}

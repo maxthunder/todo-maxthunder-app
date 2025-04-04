@@ -15,13 +15,13 @@
   </div>
 </div>
 
-<div *ngIf="completedTasks.length == 0" class="mdl-grid">
+<div *ngIf="completedTasks.length === 0" class="mdl-grid">
   <div class="mdl-cell mdl-cell--4-col"></div>
   <div class="mdl-cell mdl-cell--4-col"><h2><i>No Completed Tasks At This Time...</i></h2></div>
   <div class="mdl-cell mdl-cell--4-col"></div>
 
   <div class="mdl-cell mdl-cell--4-col"></div>
-  <div *ngIf="tasks.length > 0" class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">To Do List</button></div>
-  <div *ngIf="tasks.length == 0"  class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">Add New Tasks</button></div>
+  <div *ngIf="activeTasks.length > 0" class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">To Do List</button></div>
+  <div *ngIf="activeTasks.length === 0" class="mdl-cell mdl-cell--4-col"><button [routerLink]="['/']">Add New Tasks</button></div>
   <div class="mdl-cell mdl-cell--4-col"></div>
 </div>
